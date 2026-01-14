@@ -12,4 +12,15 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  try {
+    const { username, email } = req.body;
+    const newUser = new User({ username, email });
+    await newUser.save();
+    res.status(201).json(newUser);
+  } catch (err) {
+    res.status(500).json({ error: "Error al crear usuario" });
+  }
+});
+
 export default router;
